@@ -1,5 +1,7 @@
 gunicorn
-flask
-flask-sqlalchemy
-flask-jwt-extended
+Flask
+Flask-SQLAlchemy
+Flask-JWT-Extended
 python-dotenv
+Werkzeug
+
