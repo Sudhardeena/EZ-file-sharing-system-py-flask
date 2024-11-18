@@ -89,12 +89,16 @@ def login():
 
     # Look for the user by username
     user = User.query.filter_by(username=username).first()
+
+    if not user:
+        return jsonify({"msg":"User not found"})
+
     if user and check_password_hash(user.password, password):
         # Create and return the JWT token
         access_token = create_access_token(identity=user.id)
         return jsonify({"msg": "Login successful", "access_token": access_token}), 200
 
-    return jsonify({"msg": "Invalid username or password"}), 401
+    return jsonify({"msg": "Invalid password"}), 401
 
 # Function to check if the file extension is allowed
 # def allowed_file(filename):
