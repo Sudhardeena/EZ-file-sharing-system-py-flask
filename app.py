@@ -138,7 +138,7 @@ def login():
 # Protected dashboard route (requires JWT token)
 @app.route('/', methods=['GET'])
 def home():
-    return '<h1>Welcome to File Sharing System</h1>'
+    return '<h1>Welcome to File Sharing System</h1><h2>Use Postman to interact with Server</h2>'
 
 # Run the Flask app
 if __name__ == "__main__":
