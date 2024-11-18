@@ -10,7 +10,7 @@ Deploying to RENDER
 Working with Sqlite and Flask CRUD operations and etc
 
 
-postman collection: https://api.postman.com/collections/22131487-f0e1f47e-efdd-45f3-8108-a5481dfb0401?access_key=PMAT-01JD02ZMC7BCBRWZ33G86K06BA     
+postman collection: .postman dump/EZ File Sharing System.postman_collection.json
 
 Requirements    
 Python 3.x      
