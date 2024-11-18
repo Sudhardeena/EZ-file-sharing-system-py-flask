@@ -1,0 +1,6 @@
+gunicorn
+Flask
+Flask-SQLAlchemy
+Flask-JWT-Extended
+Werkzeug
+python-dotenv
