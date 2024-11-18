@@ -140,11 +140,15 @@ def login():
 def home():
     return '<h1>Welcome to File Sharing System</h1><h2>Use Postman to interact with Server</h2>'
 
-# Run the Flask app
-if __name__ == "__main__":
-    # Create the database and tables (if they don't exist)
+# Initialize and create tables (runs even with Gunicorn)
+def create_tables():
     with app.app_context():
-        db.create_all()
-        print("Creating tables")
-    app.run(debug=True)
+        db.create_all()  # Create tables if they don't exist
+        print("Tables created successfully!")
 
+# Call the table creation function on app startup
+create_tables()
+
+# Run the Flask app (only during local development)
+if __name__ == "__main__":
+    app.run(debug=True) 
