@@ -1,9 +1,10 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_file
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
-from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
+# from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
 from dotenv import load_dotenv
 from werkzeug.utils import secure_filename
+import jwt
 import os
 
 # Load environment variables from the .env file
@@ -19,17 +20,17 @@ app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('SQLALCHEMY_DATABASE_URI')  # 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # Disable unnecessary signal tracking
 
 # Set up the upload folder
-# UPLOAD_FOLDER = 'uploads'  # Directory where uploaded files will be stored
-# ALLOWED_EXTENSIONS = {'pptx', 'docx', 'xlsx'}
+UPLOAD_FOLDER = 'uploads'  # Directory where uploaded files will be stored
+ALLOWED_EXTENSIONS = {'pptx', 'docx', 'xlsx'}
 
 # Create the upload folder if it doesn't exist
-# os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
-# app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 # Initialize extensions
 db = SQLAlchemy(app)
-jwt = JWTManager(app)
+# jwt = JWTManager(app)
 
 # User model with the updated fields
 class User(db.Model):
@@ -95,48 +96,72 @@ def login():
 
     if user and check_password_hash(user.password, password):
         # Create and return the JWT token
-        access_token = create_access_token(identity=user.id)
+        # access_token = create_access_token(identity=user.id)
+        access_token = jwt.encode({'user_id': user.id}, app.config['JWT_SECRET_KEY'], algorithm='HS256')
         return jsonify({"msg": "Login successful", "access_token": access_token}), 200
 
     return jsonify({"msg": "Invalid password"}), 401
 
 # Function to check if the file extension is allowed
-# def allowed_file(filename):
-#     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 # Upload route - Only accessible by ops users
-# @app.route('/upload', methods=['POST'])
+@app.route('/upload', methods=['POST'])
 # @jwt_required()
-# def upload():
-#     # Get current user's ID from JWT identity
-#     current_user_id = get_jwt_identity()
-#     user = User.query.get(current_user_id)
+def upload():
+    token = request.headers.get('Authorization')
+    print(token)
 
-#     # Check if the user is an ops user
-#     if not user.is_operation_user:
-#         return jsonify({"msg": "You are not authorized to upload files. Only operation users can upload."}), 403
+    if token is None:
+        return jsonify({"msg": "Missing Authorization Header"}), 401
+    elif token.split(' ')[0] != "Bearer":
+        return jsonify({"msg":"token must be a Bearer token"})
 
-#     # Check if the request contains a file
-#     if 'file' not in request.files:
-#         return jsonify({"msg": "No file part"}), 400
+    # # Get current user's ID from JWT identity
+    # current_user_id = get_jwt_identity()
+    try:
+        # Decode the JWT token
+        decoded_token = jwt.decode(token.split(' ')[1], app.config['JWT_SECRET_KEY'], algorithms=['HS256'])
+        user_id = decoded_token['user_id']
+    except jwt.InvalidTokenError:
+        return jsonify({"msg": "Invalid or expired token"}), 401
+    print(user_id)
+    user = User.query.get(user_id)
+    print(user)
 
-#     file = request.files['file']
+    # Check if the user is an ops user
+    if not user.is_operation_user:
+        return jsonify({"msg": "You are not authorized to upload files. Only operation users can upload."}), 403
 
-#     # If the user does not select a file
-#     if file.filename == '':
-#         return jsonify({"msg": "No selected file"}), 400
+    # Check if the request contains a file
+    if 'file' not in request.files:
+        return jsonify({"msg": "key name should be file"}), 400
 
-#     # Validate the file extension
-#     if not allowed_file(file.filename):
-#         return jsonify({"msg": "Invalid file type. Only .pptx, .docx, and .xlsx are allowed."}), 400
+    file = request.files['file']
 
-#     # Secure the filename and save the file
-#     filename = secure_filename(file.filename)
-#     file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-#     file.save(file_path)
+    # If the user does not select a file
+    if file.filename == '':
+        return jsonify({"msg": "No selected file"}), 400
 
-#     return jsonify({"msg": f"File '{filename}' uploaded successfully"}), 200
+    # Validate the file extension
+    if not allowed_file(file.filename):
+        return jsonify({"msg": "Invalid file type. Only .pptx, .docx, and .xlsx are allowed."}), 400
 
+    # Secure the filename and save the file
+    filename = secure_filename(file.filename)
+    file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+    file.save(file_path)
+    
+    
+
+    return jsonify({"msg": f"File {filename} uploaded successfully"}), 200
+    # return "nothing"
+
+@app.route('/files/',methods=['GET'])
+def files():
+    uploaded_files = os.listdir(UPLOAD_FOLDER)
+    return jsonify({"files":uploaded_files})
 
 
 # Protected dashboard route (requires JWT token)
