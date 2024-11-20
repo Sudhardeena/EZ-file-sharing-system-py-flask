@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, send_file
+from flask import Flask, request, jsonify, send_from_directory, url_for
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
 # from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
@@ -153,16 +153,63 @@ def upload():
     file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
     file.save(file_path)
     
-    
-
     return jsonify({"msg": f"File {filename} uploaded successfully"}), 200
     # return "nothing"
 
+#files route asscessible by authenticated client users
 @app.route('/files/',methods=['GET'])
 def files():
     uploaded_files = os.listdir(UPLOAD_FOLDER)
     return jsonify({"files":uploaded_files})
 
+#generate download url route asscessible by authenticated client users
+@app.route('/generate_download_url/<filename>',methods=['GET'])
+def generate_download_url(filename):
+    token = request.headers.get('Authorization')
+    print(token)
+
+    if token is None:
+        return jsonify({"msg": "Missing Authorization Header"}), 401
+    elif token.split(' ')[0] != "Bearer":
+        return jsonify({"msg":"token must be a Bearer token"})
+
+    # # Get current user's ID from JWT identity
+    # current_user_id = get_jwt_identity()
+    try:
+        # Decode the JWT token
+        decoded_token = jwt.decode(token.split(' ')[1], app.config['JWT_SECRET_KEY'], algorithms=['HS256'])
+        user_id = decoded_token['user_id']
+    except jwt.InvalidTokenError:
+        return jsonify({"msg": "Invalid or expired token"}), 401
+
+    user = User.query.get(user_id)
+    if user.is_operation_user:
+        return jsonify({"msg":"only client user can download the file"})
+
+    # Secure the filename (optional but recommended)
+    filename = secure_filename(filename)
+
+    # Check if the file exists in the upload folder
+    file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+    if not os.path.exists(file_path):
+        return jsonify({"msg": "File not found"}), 404
+
+    # Generate a signed URL that will be used for file download
+    download_token = jwt.encode(
+        {'filename': filename, 'user_id': user_id},  # Include filename and user ID in the token
+        app.config['JWT_SECRET_KEY'],
+        algorithm='HS256'
+    )
+    download_url = url_for('download_file',download_token=download_token,_external=True)
+    return jsonify({'download_url':download_url,"message":"Success"})
+
+#download file route
+@app.route('/download_file/<download_token>')
+def download_file(download_token):
+    download_details = jwt.decode(download_token,app.config['JWT_SECRET_KEY'],algorithms=['HS256'])
+
+    filename = download_details['filename']
+    return send_from_directory(app.config['UPLOAD_FOLDER'],filename)
 
 # Protected dashboard route (requires JWT token)
 @app.route('/', methods=['GET'])
