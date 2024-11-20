@@ -299,8 +299,8 @@
 						"header": [
 							{
 								"key": "Content-Type",
-								"name": "Content-Type",
 								"value": "application/json",
+								"name": "Content-Type",
 								"type": "text"
 							}
 						],
@@ -338,8 +338,8 @@
 						"header": [
 							{
 								"key": "Content-Type",
-								"name": "Content-Type",
 								"value": "application/json",
+								"name": "Content-Type",
 								"type": "text"
 							}
 						],
@@ -586,6 +586,949 @@
 					],
 					"cookie": [],
 					"body": "{\n    \"message\": \"Invalid password!\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Upload File",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/C:/Users/leone/Desktop/ez_pptx.pptx",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": [
+				{
+					"name": "Missing Authorisation Header",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/leone/Desktop/ez_pptx.pptx"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://ez-file-sharing-system-py-flask.onrender.com/upload",
+							"protocol": "https",
+							"host": [
+								"ez-file-sharing-system-py-flask",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"upload"
+							]
+						}
+					},
+					"status": "Unauthorized",
+					"code": 401,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 20 Nov 2024 17:33:51 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "43"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "CF-Ray",
+							"value": "8e5a2ffc3d24b2a5-MAA"
+						},
+						{
+							"key": "CF-Cache-Status",
+							"value": "DYNAMIC"
+						},
+						{
+							"key": "Content-Encoding",
+							"value": "br"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "rndr-id",
+							"value": "2111a1ae-d834-4fcb"
+						},
+						{
+							"key": "x-render-origin-server",
+							"value": "gunicorn"
+						},
+						{
+							"key": "Server",
+							"value": "cloudflare"
+						},
+						{
+							"key": "alt-svc",
+							"value": "h3=\":443\"; ma=86400"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"msg\": \"Missing Authorization Header\"\n}"
+				},
+				{
+					"name": "Missing Bearer Token",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoyfQ.1_xKxldgoteSgNe7pQHrx-UBQj-Rr5IX4_-pnzVdiu4",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/leone/Desktop/ez_pptx.pptx",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "https://ez-file-sharing-system-py-flask.onrender.com/upload",
+							"protocol": "https",
+							"host": [
+								"ez-file-sharing-system-py-flask",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"upload"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 20 Nov 2024 17:38:24 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "43"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "CF-Ray",
+							"value": "8e5a36a46ff53989-MAA"
+						},
+						{
+							"key": "CF-Cache-Status",
+							"value": "DYNAMIC"
+						},
+						{
+							"key": "Content-Encoding",
+							"value": "br"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "rndr-id",
+							"value": "7ba7673a-d98b-4220"
+						},
+						{
+							"key": "x-render-origin-server",
+							"value": "gunicorn"
+						},
+						{
+							"key": "Server",
+							"value": "cloudflare"
+						},
+						{
+							"key": "alt-svc",
+							"value": "h3=\":443\"; ma=86400"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"msg\": \"token must be a Bearer token\"\n}"
+				},
+				{
+					"name": "Invalide token",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoyfQ.1_xKxldgoteSgNe7pQHrx-UBQj-Rr5IX4_-pnzVdiu4",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/leone/Desktop/ez_pptx.pptx",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "https://ez-file-sharing-system-py-flask.onrender.com/upload",
+							"protocol": "https",
+							"host": [
+								"ez-file-sharing-system-py-flask",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"upload"
+							]
+						}
+					},
+					"status": "Unauthorized",
+					"code": 401,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 20 Nov 2024 17:40:39 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "39"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "CF-Ray",
+							"value": "8e5a39f31a893989-MAA"
+						},
+						{
+							"key": "CF-Cache-Status",
+							"value": "DYNAMIC"
+						},
+						{
+							"key": "Content-Encoding",
+							"value": "br"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "rndr-id",
+							"value": "ac7133f6-db57-408e"
+						},
+						{
+							"key": "x-render-origin-server",
+							"value": "gunicorn"
+						},
+						{
+							"key": "Server",
+							"value": "cloudflare"
+						},
+						{
+							"key": "alt-svc",
+							"value": "h3=\":443\"; ma=86400"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"msg\": \"Invalid or expired token\"\n}"
+				},
+				{
+					"name": "User Must Be Operation user",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoyfQ.1_xKxldgoteSgNe7pQHrx-UBQj-Rr5IX4_-pnzVdiu4",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/leone/Desktop/ez_pptx.pptx"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://ez-file-sharing-system-py-flask.onrender.com/upload",
+							"protocol": "https",
+							"host": [
+								"ez-file-sharing-system-py-flask",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"upload"
+							]
+						}
+					},
+					"status": "Forbidden",
+					"code": 403,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 20 Nov 2024 17:46:41 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "73"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "CF-Ray",
+							"value": "8e5a42c8980f1797-MAA"
+						},
+						{
+							"key": "CF-Cache-Status",
+							"value": "DYNAMIC"
+						},
+						{
+							"key": "Content-Encoding",
+							"value": "br"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "rndr-id",
+							"value": "93f62451-7cb7-47ab"
+						},
+						{
+							"key": "x-render-origin-server",
+							"value": "gunicorn"
+						},
+						{
+							"key": "Server",
+							"value": "cloudflare"
+						},
+						{
+							"key": "alt-svc",
+							"value": "h3=\":443\"; ma=86400"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"msg\": \"You are not authorized to upload files. Only operation users can upload.\"\n}"
+				},
+				{
+					"name": "Upload Success",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/leone/Desktop/ez_pptx.pptx"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://ez-file-sharing-system-py-flask.onrender.com/upload",
+							"protocol": "https",
+							"host": [
+								"ez-file-sharing-system-py-flask",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"upload"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 20 Nov 2024 17:52:11 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "54"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "CF-Ray",
+							"value": "8e5a4acffddc7f91-MAA"
+						},
+						{
+							"key": "CF-Cache-Status",
+							"value": "DYNAMIC"
+						},
+						{
+							"key": "Content-Encoding",
+							"value": "br"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "rndr-id",
+							"value": "63573a1d-0670-4fdf"
+						},
+						{
+							"key": "x-render-origin-server",
+							"value": "gunicorn"
+						},
+						{
+							"key": "Server",
+							"value": "cloudflare"
+						},
+						{
+							"key": "alt-svc",
+							"value": "h3=\":443\"; ma=86400"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"msg\": \"File ez_pptx.pptx uploaded successfully\"\n}"
+				},
+				{
+					"name": "Invalid file type",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoyfQ.1_xKxldgoteSgNe7pQHrx-UBQj-Rr5IX4_-pnzVdiu4",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/leone/Downloads/speakers_booklist.pdf"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://ez-file-sharing-system-py-flask.onrender.com/upload",
+							"protocol": "https",
+							"host": [
+								"ez-file-sharing-system-py-flask",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"upload"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 20 Nov 2024 17:54:30 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "72"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "CF-Ray",
+							"value": "8e5a4e315f8e7f43-MAA"
+						},
+						{
+							"key": "CF-Cache-Status",
+							"value": "DYNAMIC"
+						},
+						{
+							"key": "Content-Encoding",
+							"value": "br"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "rndr-id",
+							"value": "0a59e50b-ab0b-4b37"
+						},
+						{
+							"key": "x-render-origin-server",
+							"value": "gunicorn"
+						},
+						{
+							"key": "Server",
+							"value": "cloudflare"
+						},
+						{
+							"key": "alt-svc",
+							"value": "h3=\":443\"; ma=86400"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"msg\": \"Invalid file type. Only .pptx, .docx, and .xlsx are allowed.\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Generate download URL",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": [
+				{
+					"name": "Generating download url success",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://ez-file-sharing-system-py-flask.onrender.com/generate_download_url/ez_pptx.pptx",
+							"protocol": "https",
+							"host": [
+								"ez-file-sharing-system-py-flask",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"generate_download_url",
+								"ez_pptx.pptx"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 20 Nov 2024 17:57:58 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "204"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "CF-Ray",
+							"value": "8e5a534e3d637e90-MAA"
+						},
+						{
+							"key": "CF-Cache-Status",
+							"value": "DYNAMIC"
+						},
+						{
+							"key": "Content-Encoding",
+							"value": "br"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "rndr-id",
+							"value": "4a81eabf-52a0-4b4d"
+						},
+						{
+							"key": "x-render-origin-server",
+							"value": "gunicorn"
+						},
+						{
+							"key": "Server",
+							"value": "cloudflare"
+						},
+						{
+							"key": "alt-svc",
+							"value": "h3=\":443\"; ma=86400"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"download_url\": \"https://ez-file-sharing-system-py-flask.onrender.com/download_file/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaWxlbmFtZSI6ImV6X3BwdHgucHB0eCIsInVzZXJfaWQiOjF9.SQQM_ylHHxDzuCbaGsyWs0l5w7SQEKqqUt0q5Dusy4A\",\n    \"message\": \"Success\"\n}"
+				},
+				{
+					"name": "Only Client User Allowed",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://ez-file-sharing-system-py-flask.onrender.com/generate_download_url/ez_pptx.pptx",
+							"protocol": "https",
+							"host": [
+								"ez-file-sharing-system-py-flask",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"generate_download_url",
+								"ez_pptx.pptx"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 20 Nov 2024 17:58:50 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "204"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "CF-Ray",
+							"value": "8e5a5491effe7e90-MAA"
+						},
+						{
+							"key": "CF-Cache-Status",
+							"value": "DYNAMIC"
+						},
+						{
+							"key": "Content-Encoding",
+							"value": "br"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "rndr-id",
+							"value": "02b872f2-a615-40db"
+						},
+						{
+							"key": "x-render-origin-server",
+							"value": "gunicorn"
+						},
+						{
+							"key": "Server",
+							"value": "cloudflare"
+						},
+						{
+							"key": "alt-svc",
+							"value": "h3=\":443\"; ma=86400"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"download_url\": \"https://ez-file-sharing-system-py-flask.onrender.com/download_file/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaWxlbmFtZSI6ImV6X3BwdHgucHB0eCIsInVzZXJfaWQiOjF9.SQQM_ylHHxDzuCbaGsyWs0l5w7SQEKqqUt0q5Dusy4A\",\n    \"message\": \"Success\"\n}"
+				},
+				{
+					"name": "New Request",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://ez-file-sharing-system-py-flask.onrender.com/generate_download_url/ez_pptx.pptx",
+							"protocol": "https",
+							"host": [
+								"ez-file-sharing-system-py-flask",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"generate_download_url",
+								"ez_pptx.pptx"
+							]
+						}
+					},
+					"status": "Unauthorized",
+					"code": 401,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 20 Nov 2024 17:59:52 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "43"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "CF-Ray",
+							"value": "8e5a56170d049149-MAA"
+						},
+						{
+							"key": "CF-Cache-Status",
+							"value": "DYNAMIC"
+						},
+						{
+							"key": "Content-Encoding",
+							"value": "br"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "rndr-id",
+							"value": "ba8fc61c-e1ca-4215"
+						},
+						{
+							"key": "x-render-origin-server",
+							"value": "gunicorn"
+						},
+						{
+							"key": "Server",
+							"value": "cloudflare"
+						},
+						{
+							"key": "alt-svc",
+							"value": "h3=\":443\"; ma=86400"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"msg\": \"Missing Authorization Header\"\n}"
+				},
+				{
+					"name": "Missing Authorization Header",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://ez-file-sharing-system-py-flask.onrender.com/generate_download_url/ez_pptx.pptx",
+							"protocol": "https",
+							"host": [
+								"ez-file-sharing-system-py-flask",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"generate_download_url",
+								"ez_pptx.pptx"
+							]
+						}
+					},
+					"status": "Unauthorized",
+					"code": 401,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 20 Nov 2024 17:59:52 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "43"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "CF-Ray",
+							"value": "8e5a56170d049149-MAA"
+						},
+						{
+							"key": "CF-Cache-Status",
+							"value": "DYNAMIC"
+						},
+						{
+							"key": "Content-Encoding",
+							"value": "br"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "rndr-id",
+							"value": "ba8fc61c-e1ca-4215"
+						},
+						{
+							"key": "x-render-origin-server",
+							"value": "gunicorn"
+						},
+						{
+							"key": "Server",
+							"value": "cloudflare"
+						},
+						{
+							"key": "alt-svc",
+							"value": "h3=\":443\"; ma=86400"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"msg\": \"Missing Authorization Header\"\n}"
+				},
+				{
+					"name": "File not Found",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://ez-file-sharing-system-py-flask.onrender.com/generate_download_url/wrong.pptx",
+							"protocol": "https",
+							"host": [
+								"ez-file-sharing-system-py-flask",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"generate_download_url",
+								"wrong.pptx"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 20 Nov 2024 18:01:22 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "29"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "CF-Ray",
+							"value": "8e5a58481e127f39-MAA"
+						},
+						{
+							"key": "CF-Cache-Status",
+							"value": "DYNAMIC"
+						},
+						{
+							"key": "Content-Encoding",
+							"value": "br"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "rndr-id",
+							"value": "da2b7cf4-3038-48f3"
+						},
+						{
+							"key": "x-render-origin-server",
+							"value": "gunicorn"
+						},
+						{
+							"key": "Server",
+							"value": "cloudflare"
+						},
+						{
+							"key": "alt-svc",
+							"value": "h3=\":443\"; ma=86400"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"msg\": \"File not found\"\n}"
 				}
 			]
 		}
